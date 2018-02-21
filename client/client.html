@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Our simple HTTP server</title>
+  <link rel="stylesheet" type="text/css" href="/style.css">
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
+  <script type="text/babel">
+  const parseJSON = (xhr,content) => {
+    const obj = JSON.parse(xhr.response);
+    
+    console.dir(obj);
+    
+    /*if(obj.links){
+        const userList = document.createElement('p');
+        const users = JSON.stringify(obj.users);
+        userList.textContent = users;
+        content.appendChild(userList);
+    }
+    
+    if(obj.message){
+        const p = document.createElement('p');
+        p.textContent = `Message: ${obj.message} `;
+        if(obj.id){
+            p.textContent += `ID: ${obj.id}`;
+        }
+        content.appendChild(p);
+    }/**/
+    
+  };
+  const handleResponse = (xhr, parsedResponse) => {
+    const content = document.querySelector('#content');
+    switch(xhr.status){
+        case 200:
+            content.innerHTML = `<b>Success</b>`;
+            break;
+        case 201:
+            content.innerHTML = `<b>Created</b>`;
+            break;
+        case 204:
+            content.innerHTML = `<b>Updated (No Content)</b>`;
+            return;
+        case 400:
+            content.innerHTML = `<b>Bad Request</b>`;
+            break;
+        case 404:
+            content.innerHTML = `<b>Page Not Found</b>`;
+            break;
+        default:
+            content.innerHTML = `Error code not implemented by client.`;
+            break;
+        }
+        if(parsedResponse){
+            parseJSON(xhr, content);
+        }
+  };
+  const sendPost = (e, addForm) => {
+        
+        const nameAction = addForm.getAttribute('action');
+        const nameMethod = addForm.getAttribute('method');
+        
+        const nameField = addForm.querySelector('#nameField');
+        const linkField = addForm.querySelector('#linkField');
+        
+        const xhr = new XMLHttpRequest();
+        
+        xhr.open(nameMethod, nameAction);
+        
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        
+        xhr.setRequestHeader('Accept', 'application/json');
+        
+        xhr.onload = () => handleResponse(xhr, true);
+        
+        const formData = `name=${nameField.value}&link=${linkField.value}`;
+        
+        xhr.send(formData);
+        
+        e.preventDefault();
+        
+        return false;
+  };
+  
+  
+  const sendGet = (e, getForm) => {
+        const action = getForm.getAttribute('action');
+        const method = getForm.getAttribute('method');
+        
+        const xhr = new XMLHttpRequest();
+        
+        xhr.open(method, action);
+        
+        xhr.setRequestHeader('Accept', 'application/json');
+        
+        xhr.onload = () => handleResponse(xhr, true);
+        
+        xhr.send();
+        
+        e.preventDefault();
+        
+        return false;
+    };
+  const init = () => {
+    const getForm = document.querySelector('#getForm');
+    const addForm = document.querySelector('#addForm');
+    
+    const getUser = (e) => sendGet(e, getLink);
+    const addUser = (e) => sendPost(e, addLink);
+    
+    getForm.addEventListener('submit', getLink);
+    addForm.addEventListener('submit', addLink);
+  }
+  window.onload = init;
+  </script>
+</head>
+<body>
+  <section id="top">
+    <h1>Project 1</h1>
+      <h3>Get link</h3>
+    <form id="getForm" action="/getLink" method="get">
+      <label for="name">Name: </label>
+      <input id="nameField" type="text" name="name" />
+      <input type="submit" value="Get Link" />
+    </form>
+      <h3>Add Link</h3>
+      <form id="addForm" action="/addLink" method="post">
+      <label for="name">Name: </label>
+      <input id="nameField" type="text" name="name" />
+      <label for="link">Link: </label>
+      <input id="linkField" type="text" name="name" />
+      <input type="submit" value="Add Link" />
+    </form>
+  </section>
+  <section id="content">
+  </section>
+</body>
+</html>
