@@ -15,8 +15,4 @@
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-import": "^2.8.0"
   },
-  "dependencies": {
-    "bootstrap": "^4.0.0",
-    "mongodb": "^3.0.2"
-  }
 }
