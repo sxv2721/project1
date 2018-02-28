@@ -32,19 +32,17 @@ const notFoundMeta = (request, response) => {
 };
 //need add link and get link methods
 //mongoDB PW 5DgCmJuuMMjueXdP
-const getLink = (request, response, name) => {
-    if(links[name]){
+const getLink = (request, response) => {
         const responseJSON = {
             links,
         };
         respondJSON(request, response, 200, responseJSON);
-    }
 }
 const addLink = (request, response, body) => {
     const responseJSON = {
         message: 'Name and Link are both required.',
     };
-    
+    console.dir(body);
     if(!body.name || !body.link){
         respondJSON.id = 'missingParams';
         return respondJSON(request, response, 400, responseJSON);
@@ -54,11 +52,9 @@ const addLink = (request, response, body) => {
     if(links[body.name]){
         responseCode = 204;
     } else {
-        users[body.name] = {};
+        links[body.name] = {};
     }
-    
-    users[body.name].name = body.name;
-    users[body.name].link = body.link;
+    links[body.name].link = body.link;
     console.dir(links);
     if (responseCode === 201) {
     responseJSON.message = 'Created Successfully';

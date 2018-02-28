@@ -48,8 +48,8 @@ const onRequest = (request, response) => {
         htmlHandler.getIndex(request, response);
       } else if (parsedURL.pathname === '/style.css') {
         htmlHandler.getCSS(request, response);
-      } /*else if (parsedURL.pathname === '/style.css') {
-        jsonHandler.getLinks(request, response, parsedURL);
+      } else if (parsedURL.pathname === '/getLink') {
+        JSONHandler.getLink(request, response);
       }/**/ else {
         JSONHandler.notFound(request, response);
       }

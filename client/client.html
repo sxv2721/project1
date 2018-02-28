@@ -11,11 +11,23 @@
     
     console.dir(obj);
     
-    /*if(obj.links){
-        const userList = document.createElement('p');
-        const users = JSON.stringify(obj.users);
-        userList.textContent = users;
-        content.appendChild(userList);
+    if(obj.links){
+        const linkList = document.createElement('p');
+        const name = document.querySelector('#nameField').value;
+        const links = JSON.stringify(obj.links[`${name}`]);
+        console.dir(links);
+        if(links){
+            
+            const value = links.split(":");
+            console.dir(name);
+            console.dir(value);
+        
+            linkList.textContent = value[1].replace('\"', '').replace('\"', '').replace('\}', '');
+            
+        } else {
+            linkList.textContent = "link does not exist";
+        }
+        content.appendChild(linkList);
     }
     
     if(obj.message){
@@ -83,6 +95,8 @@
   
   
   const sendGet = (e, getForm) => {
+        //const name = ;
+        console.dir(getForm.querySelector('#nameField').value);
         const action = getForm.getAttribute('action');
         const method = getForm.getAttribute('method');
         
@@ -104,8 +118,8 @@
     const getForm = document.querySelector('#getForm');
     const addForm = document.querySelector('#addForm');
     
-    const getUser = (e) => sendGet(e, getLink);
-    const addUser = (e) => sendPost(e, addLink);
+    const getLink = (e) => sendGet(e, getForm);
+    const addLink = (e) => sendPost(e, addForm);
     
     getForm.addEventListener('submit', getLink);
     addForm.addEventListener('submit', addLink);
@@ -130,7 +144,7 @@
       <label for="name">Name: </label>
       <input id="nameField" type="text" name="name" />
       <label for="link">Link: </label>
-      <input id="linkField" type="text" name="name" />
+      <input id="linkField" type="text" name="link" />
       <input type="submit" value="Add Link" />
     </form>
           </div>
