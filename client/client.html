@@ -116,12 +116,15 @@
 <body>
   <section id="top">
     <h1>Project 1</h1>
+      <div>
       <h3>Get link</h3>
     <form id="getForm" action="/getLink" method="get">
       <label for="name">Name: </label>
       <input id="nameField" type="text" name="name" />
       <input type="submit" value="Get Link" />
     </form>
+      </div>
+      <div>
       <h3>Add Link</h3>
       <form id="addForm" action="/addLink" method="post">
       <label for="name">Name: </label>
@@ -130,7 +133,9 @@
       <input id="linkField" type="text" name="name" />
       <input type="submit" value="Add Link" />
     </form>
+          </div>
   </section>
+    
   <section id="content">
   </section>
 </body>
