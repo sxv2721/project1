@@ -5,7 +5,7 @@ const url = require('url');
 const htmlHandler = require('./htmlHandler.js');
 const JSONHandler = require('./jsonHandler.js');
 
-var MongoClient = require('mongodb').MongoClient;
+/*var MongoClient = require('mongodb').MongoClient;
 
 var uri = "mongodb://sxv2721:<5DgCmJuuMMjueXdP>@cluster0-shard-00-00-pueaw.mongodb.net:27017,cluster0-shard-00-01-pueaw.mongodb.net:27017,cluster0-shard-00-02-pueaw.mongodb.net:27017/test?ssl=true&replicaSet=Cluster0-shard-0&authSource=admin";
 /*MongoClient.connect(uri, function(err, db) {
